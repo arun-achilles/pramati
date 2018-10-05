@@ -10,64 +10,51 @@ $(document).ready(function() {
 				});
 				
 	//DOB Validation
-				$("#dob").on('focus', function() {
-					$("#dob_error").hide();
+				$(".dob").on('focus', function() {
+					hide_error($(this));
 				});
-	
-	
+		
 	//NAME Validation
     			$(".name").keyup(function() {
 					$('.name').css('textTransform', 'capitalize');
-				});
-				$(".name").on('blur', function() {
-					var input=$(this);
-					var is_name=input.val();
-					if(is_name){$("#lastname_error").hide();}
-					else{name_validator=1;$("#lastname_error").show();}
-				});
-				$(".name").on('focus', function() {
-					name_validator=0;
-					$("#lastname_error").hide();
+	
+					var is_name=$(this).val();
+					if(is_name){
+						name_validator=0;
+						hide_error($(this));
+					}
+					else{
+						name_validator=1;
+						show_error($(this));
+					}
 				});
 
 	//EMAIL VALIDATION
-				$('.contact_email').on('blur', function() {
+				$('.contact_email').on('input', function() {
 				var email_input=$(this);
-				var email_regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-				var is_email=email_regex.test(email_input.val());
-				if(is_email){
-					$("#email_error").hide();
-					input.removeClass("invalid").addClass("valid");
-					}
-				else{email_validator=1;
-					$("#email_error").show();}
-					input.removeClass("valid").addClass("invalid");
-				});
-				$('#contact_email').on('focus', function() {
+				if(email_validation(email_input.val())){
 					email_validator=0;
-					$("#email_error").hide();
+					hide_error($(this));
+					}
+				else{
+					email_validator=1;
+					show_error($(this));
+				}
 				});
+			
 				
 	//Mobile Validation
-				$('.contact_mobile').on('blur',function() {
+				$('.contact_mobile').on('input',function() {
 					var mobile=$(this);
-					var re = /^([6-9]+[\d]{9})?$/;
-					var is_mobile=re.test(mobile.val());
-					if (is_mobile) {
-						$("#mobile_error").hide();
-						input.removeClass("invalid").addClass("valid");
-					}
-					else {mobile_validator=1;
-						$("#mobile_error").show();
-						input.removeClass("valid").addClass("invalid");
-					}
-				});
-				$('#contact_mobile').on('focus', function() {
+				if (mobile_number_validation(mobile.val())) {
 					mobile_validator=0;
-					$("#mobile_error").hide();
+					hide_error($(this));
+				}
+				else {mobile_validator=1;
+					show_error($(this));
+				}
 				});
-				
-			
+						
 	});
 	//INSERTION
 	
@@ -80,7 +67,9 @@ $(document).ready(function() {
 		//alert("fname-"+first_name+"lname-"+last_name+"dob-"+dob+"email-"+email);
 		if(first_name==""||last_name==""||dob==""||email==""||mobile==""){
 			flag=1;
-			if(first_name==""||last_name=="")
+			if(first_name=="")
+				$("#firstname_error").show();
+			if(last_name=="")
 				$("#lastname_error").show();
 			if(dob=="")
 				$("#dob_error").show();
@@ -96,11 +85,12 @@ $(document).ready(function() {
 			last_name = capitalizeName($("#last_name").val());
 			var row = "<tr><td>" + first_name + "</td><td>" + last_name + "</td><td>" + email + "</td><td>" + dob + "</td><td>" + mobile + "</td></tr>";
 				$("#contact tbody").append(row);
-				$("#user_form").reset();
+				$("#user_form").trigger("reset");
 		}else{
-			alert("Please check if all the fields are entered properly");
+			//alert("Please check if all the fields are entered properly");
 		}
 	}
+
 	function capitalizeName(str) {
 		str = str.split(" ");
 		for (var i = 0, x = str.length; i < x; i++) {
@@ -110,4 +100,32 @@ $(document).ready(function() {
 		return str;
 	}
 
+//Validating Functions
 
+	function email_validation(email){
+		var email_regex = /^[A-Za-z0-9][A-Za-z0-9._%+-]{0,63}@(?:[A-Za-z0-9-]{1,10}\.){1,125}[A-Za-z]{2,5}$/;
+		var is_email=email_regex.test(email);
+		if(is_email)
+			return true;
+		else
+			return false;
+	}
+	function mobile_number_validation(mobilenumber){
+		var mobile_regex = /^([6-9]+[\d]{9}){1}?$/;
+		var is_mobile=mobile_regex.test(mobilenumber);
+		if(is_mobile)
+			return true;
+		else
+			return false;
+
+	}
+
+//error functions
+
+	function show_error(object){
+		object.parent().find($(".error")).show();
+	}
+
+	function hide_error(object){
+		object.parent().find($(".error")).hide();
+	}
