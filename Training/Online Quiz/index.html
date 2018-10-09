@@ -7,17 +7,67 @@
     	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    	<!-- Bootstrap CDN-->
+    
 		<!--User files-->
 		<script src="js/timer.js"></script> 
+		<link rel="stylesheet" href="css/style.css">
 	</head>
 
 <body>
+		<center>	
+		  <h3>Crorepathi</h3>
+		  <button id="start">Start</button>
+		  <button id="next">Next</button>
+		  <button id="submit">Submit</button>
+		  <!-- <div class="timer" id="timer">the timer is : </div> -->
+		</center>
 
-  <p>A script on this page starts a timer:</p>
+  <!--quiz box-->
+  <center>
+        <div class="container">
+		      <div class="game-description">The Chance to become a Millionaire</div>
+	
 
-  <p id="demo"></p>
-  <button id="start">Start</button>
-  <button id="next">Next</button>
+		       <div class="game">
+			          <div class="questions" id="question">	
+			            
+			          </div>
+			          <div class="options-box">
+			          	<div class="row-1">
+					          <div class="option option-a">
+						          <input   class="a-radio" type="radio" id="a_radio" name="correctAnswer" value="a"/>
+						          <label id ="option_a" class="">Option a</label>
+					           </div>
+					          <div class="option option-b">
+						          <input  class="b-radio" type="radio" id="b_radio" name="correctAnswer" value="b"/>
+						          <label id ="option_b" class="">Option b</label> 
+					           </div>
+				         </div>
+				         <div class="row-2">
+					          <div class="option option-c">
+						          <input  class="c-radio" type="radio" id="c_radio" name="correctAnswer" value="c"/>
+						          <label  id ="option_c" class="">Option c</label> 
+					          </div>
+					          <div class="option option-d">
+						          <input  class="d-radio" type="radio" id="d_radio" name="correctAnswer" value="d"/>
+						          <label  id ="option_d" class="">Option d</label> 
+					          </div>
+				         </div>
+			          </div>
+			        
+		      </div>
+		 </div>
+	</center>
+
+<!--timer-->
+	 <center>
+	    <div class="time">
+	    	<p>Seconds Left : <div class="timer" id="timer"></div></p>
+	    </div>
+    </center>
+ 
+			  
 </body>
 
 </html>

@@ -1,0 +1,93 @@
+body{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+.game-description{
+  width:60%;
+  padding:5px;
+  margin:5px;
+  border-radius: 10px;
+  background-color: Gold;
+}
+.game{
+  position:relative;
+  float:center;
+  width:60%;
+  height:60%;
+}
+
+.questions {
+  position: relative;
+  background-color: MidnightBlue;
+  color: white;
+  padding:5px;
+  margin:5px;
+  height: 20px;
+  text-align: left;
+  float:top;
+  border-radius: 25px;
+}
+.options-box{
+  position:relative;
+  margin:5px;
+  padding:5%;
+  float:bottom;
+  
+
+}
+.option{
+  position: relative;
+  background-color: MidnightBlue;
+  width: 20%;
+  height: 25%;
+  color: white;
+  border-radius: 25px;
+  text-align: left;
+  padding:5px;
+  margin:5px;
+}
+.row-1{
+  position: relative;
+  height:50%;
+}
+.row-2{
+  position:relative;
+  height:50%;
+}
+.option-a {
+  position: relative;
+  width:40%;
+  float:left;
+}
+
+.option-b {
+   position: relative;
+   width:40%;
+   float:right;
+}
+.option-c {
+   position: relative;
+   width:40%;
+   float:left;
+}
+
+.option-d {
+   position: relative;
+   width:40%;
+   float:right;
+}
+.time{
+  position: relative;
+  background-color: MidnightBlue;
+  width:10%;
+  height:10%;
+  top:50px;
+}
+.timer{
+  position:relative;
+  background-color: MidnightBlue;
+  color:white;
+  width:5%;
+  height:5%;
+}

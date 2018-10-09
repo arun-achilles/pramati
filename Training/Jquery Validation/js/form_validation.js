@@ -19,7 +19,7 @@ $(document).ready(function() {
 					$('.name').css('textTransform', 'capitalize');
 	
 					var is_name=$(this).val();
-					if(is_name){
+					if(name_validation(is_name)){
 						name_validator=0;
 						hide_error($(this));
 					}
@@ -103,7 +103,7 @@ $(document).ready(function() {
 //Validating Functions
 
 	function email_validation(email){
-		var email_regex = /^[A-Za-z0-9][A-Za-z0-9._%+-]{0,63}@(?:[A-Za-z0-9-]{1,10}\.){1,125}[A-Za-z]{2,5}$/;
+		var email_regex = /^[A-Za-z][A-Za-z0-9._%+-]{0,63}@(?:[A-Za-z0-9-]{1,10}\.){1,125}[A-Za-z]{2,5}$/;
 		var is_email=email_regex.test(email);
 		if(is_email)
 			return true;
@@ -118,6 +118,14 @@ $(document).ready(function() {
 		else
 			return false;
 
+	}
+	function name_validation(name){
+		var name_regex = /^[A-Za-z]{3,50}/;
+		if(name_regex.test(name))
+			return true;
+		else
+			return false;
+		
 	}
 
 //error functions

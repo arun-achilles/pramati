@@ -12,32 +12,10 @@
 
 .error{
 	display: none;
-	font-color:red;
-	font-size:10px;
-	margin-left: 10px;
 }		
 
-.error_show{
-	color: red;
-	margin-left: 10px;
-}
-
-input.invalid, textarea.invalid{
-	border: 2px solid red;
-}
-
-input.valid, textarea.valid{
-	border: 2px solid green;
-}
 
 
-contact_mobile.invalid, textarea.invalid{
-	border: 2px solid red;
-}
-
-contact_mobile.valid, textarea.valid{
-	border: 2px solid green;
-}
 
 
 
