@@ -1,14 +1,4 @@
-#contact label{
-	display: inline-block;
-	width: 100px;
-	text-align: right;
-}
-#contact_submit{
-	padding-left: 100px;
-}
-#contact div{
-	margin-top: 1em;
-}
+
 
 .error{
 	display: none;

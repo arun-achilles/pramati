@@ -2,7 +2,7 @@ function initiator(){
 	timer = setInterval(function() {
   		myTimer()
 			}, 1000);
-	var d = 5;
+	var d = 20;
 
 	function myTimer() {
 		if(d>=0){
@@ -33,7 +33,8 @@ function initiator(){
  function answer_validation(){
  		if($('input[name=correctAnswer]:checked').val()==questions[question_number].correct_answer)
  			{
- 				alert("correct");
+ 				alert("success");
+ 				//$("#myModal").modal();
  			}else{
  				alert("Wrong");
  			}
@@ -41,6 +42,9 @@ function initiator(){
  }
 
  function option_block(){
+ 		$(':radio').attr('disabled', true);
+ }
+ function option_unblock(){
  		$(':radio').attr('disabled', false);
  }
  function option_uncheck(){
@@ -50,8 +54,12 @@ function initiator(){
 $(document).ready(function() {
 	$("#start").on('click',function(){
 		//alert("started");
-		total_questions = 4;
+		//$("#myModal").modal();
+		total_questions = 5;
+		question_number = 0;
 		build_question();
+		option_unblock();
+		option_uncheck();
 		initiator();
 		
 	});
@@ -61,6 +69,7 @@ $(document).ready(function() {
 		total_questions--;
 		clearInterval(timer);
 		option_uncheck();
+		option_unblock();
 		build_question();
 		initiator();
 		}else{
@@ -86,7 +95,7 @@ $(document).ready(function() {
 
 
 //Question Array
-question_number = 1;
+
 questions = [{
 	question_index:1,
 	question:"Which among the following is a language",

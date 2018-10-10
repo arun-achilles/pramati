@@ -24,54 +24,64 @@
 	</head>
 	<body>
 	
-		<div class="container-fluid">
-	      <div class="row align-items-start">
-	          <div class="col-md-2"></div>
-	          <div class="col-md-9">
+		<div class="container">
+	      <div class="row">
+	         
+	          <div class="col-md-6 offset-md-3">
 
 	            <div class="card primary">
-	              <div class="card-header">USER REGISTRATION FORM</div>
+	              <div class="card-header" style="background-color: black;color:white">USER REGISTRATION FORM</div>
 	              	<div class="card-body">
-					<form id="user_form" method="post" action="">
-						
-						<!-- FIRST Name -->
-						<div class="form-group form-inline form-row">
-							<label for="first_name" class="control-label col-md-3">First Name:</label>
-							<input type="text" id="first_name" class = "form-control col-md-6 name" name="firstname" required></input>
-							<span id="firstname_error" class="col-md-3 text-danger error">Valid Name is required</span>
-						</div>
-						<!-- LAST NAME-->
-						<div class="form-group form-inline form-row">
-							<label for="last_name" class="control-label col-md-3">Last Name:</label>
-							<input type="text" id="last_name" class = "form-control col-md-6 name" name="lastname" required></input>
-							<span id="lastname_error" class="col-md-3 text-danger error">Valid Name field is required.</span>
-						</div>
-						<!--DOB-->
-						<div class="form-group form-inline form-row">
-							  <label for="dob" class="control-label col-md-3">Date of Birth:</label>
-							  <input type="text" id="dob" name="dob" class="form-control col-md-6 dob" placeholder="MM/DD/YYYY" autocomplete="off" required>
-							  <span id="dob_error" class="col-md-3 text-danger error">The date should not be empty.</span>	
-						</div>
+						<form id="user_form" method="post" action="">
 							
-						<!-- Email -->
-						<div class="form-group form-inline form-row">
-							<label for="contact_email" class="control-label col-md-3">Email:</label>
-							<input type="email" id="contact_email" class="form-control col-md-6 contact_email" name="email" required></input>
-							<span id="email_error" class="col-md-3 text-danger error">A valid email address is required</span>				
-						</div>					
-						<!--Mobile No -->
-						<div class="form-group form-inline form-row">
-							<label for="contact_mobile" class="control-label col-md-3">Mobile No:</label>
-							<input type="text" id="contact_mobile" class="form-control col-md-6 contact_mobile" name="mobile" required></input>
-							<span id="mobile_error" class="col-md-3 text-danger error">A valid mobile No is required</span>				
-						</div>		
-													
-						<!-- Submit Button -->
-						<div class="form-group form-inline form-row" id="contact_submit">	
-							<div class="col-md-5"></div>			
-							<button type="button" class="btn btn-info form-control" onclick="Insert()">Submit</button>
-							<span id="submission_error" class="error">Please check if all the fields are entered properly.</span>
-						</div>
+							<!-- FIRST Name -->
+							<div class="form-group form-inline form-row">
+								<label for="first_name" class="control-label col-md-3">First Name:</label>
+								<input type="text" id="first_name" class = "form-control col-md-6 name" name="firstname" required/>
+								<span id="firstname_error" class="col-md-3 text-danger error">Valid Name is required</span>
+							</div>
+							<!-- LAST NAME-->
+							<div class="form-group form-inline form-row">
+								<label for="last_name" class="control-label col-md-3">Last Name:</label>
+								<input type="text" id="last_name" class = "form-control col-md-6 name" name="lastname" required/>
+								<span id="lastname_error" class="col-md-3 text-danger error">Valid Name field is required.</span>
+							</div>
+							<!--DOB-->
+							<div class="form-group form-inline form-row">
+								  <label for="dob" class="control-label col-md-3">Date of Birth:</label>
+								  <input type="text" id="dob" name="dob" class="form-control col-md-6 dob" placeholder="MM/DD/YYYY" autocomplete="off" required/>
+								  <span id="dob_error" class="col-md-3 text-danger error">The date should not be empty.</span>	
+							</div>
+								
+							<!-- Email -->
+							<div class="form-group form-inline form-row">
+								<label for="contact_email" class="control-label col-md-3">Email:</label>
+								<input type="email" id="contact_email" class="form-control col-md-6 contact_email" name="email" required/>
+								<span id="email_error" class="col-md-3 text-danger error">A valid email address is required</span>				
+							</div>					
+							<!--Mobile No -->
+							<div class="form-group form-inline form-row">
+								<label for="contact_mobile" class="control-label col-md-3">Mobile No:</label>
+								<input type="text" id="contact_mobile" class="form-control col-md-6 contact_mobile" name="mobile" required/>
+								<span id="mobile_error" class="col-md-2 text-danger error">A valid mobile No is required</span>				
+							</div>		
+														
+							<!-- Submit Button -->
+							<div class="form-group form-inline form-row" id="contact_submit">	
+								<div class="col-md-4"></div>			
+								<button type="button" class="btn btn-primary form-control" onclick="Insert()">Submit</button>
+								<span id="submission_error" class="error">Please check if all the fields are entered properly.</span>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
 
 						<div class="text-md-center table-responsive"> 
 				            <table class="table  table-condensed table-bordered thead-dark" id="contact">
@@ -89,15 +99,12 @@
 							   </tbody>
 				           </table>
 				        </div>
-					</form>
-					</div>
-				</div>
+					
 			</div>
 	
 		</div>
 
 	</div>
-
 	</body>
 </html>
 

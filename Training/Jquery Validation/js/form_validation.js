@@ -120,7 +120,7 @@ $(document).ready(function() {
 
 	}
 	function name_validation(name){
-		var name_regex = /^[A-Za-z]{3,50}/;
+		var name_regex = /^[A-Za-z][A-Za-z]{2,60}$/;
 		if(name_regex.test(name))
 			return true;
 		else
