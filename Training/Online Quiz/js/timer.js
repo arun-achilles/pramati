@@ -6,15 +6,19 @@ function initiator(){
 
 	function myTimer() {
 		if(d>=0){
-  		document.getElementById("demo").innerHTML = d--;
+  		document.getElementById("timer").innerHTML = d--;
   		}
   		else{
-  			if(total_questions!=0){
-  			total_questions--;
-  			d=5;
-  			}else{
+  			answer_validation();
   			clearInterval(timer);
-  			alert("Quiz over");
+  			if(total_questions!=0){
+  				total_questions--;
+  			}else{
+  				$("#submit").show();
+  				$("#next").hide();
+  				$("#quit").hide();
+
+  				alert("Quiz over");
   			}
   			
   		}
@@ -22,105 +26,169 @@ function initiator(){
 }
  function build_question(){
 
+ 		$("#question").html(questions[question_number].question);
+ 		$("#option_a").html(questions[question_number].options.a);
+ 		$("#option_b").html(questions[question_number].options.b);
+ 		$("#option_c").html(questions[question_number].options.c);
+ 		$("#option_d").html(questions[question_number].options.d);
+ 		
  }
 
+ function answer_validation(){
+ 		if($('input[name=correctAnswer]:checked').val()==questions[question_number].correct_answer)
+ 			{
+ 				amount_won+=1000;
+ 				question_number++;
+ 				$(".amount").html(amount_won);
+ 				$("#success_modal").modal();
+ 				$("#next").show();
+ 				$("#submit").hide();
+ 			}else{
+ 				$("#submit").hide();
+ 				$("#amount").html(amount_won);
+ 				$("#failure_modal").modal();
+ 				//game_over();
+ 			}
+ }
+
+ function game_over(){
+ 	$(".amount").html(amount_won);
+ 		$("#submit").hide();
+  		$("#next").hide();
+  		$("#quit").hide();
+  		$("#start").show();
+  		$("#result_modal").modal();
+ }
+
+ function option_block(){
+ 		$(':radio').attr('disabled', true);
+ }
+ function option_unblock(){
+ 		$(':radio').attr('disabled', false);
+ }
+ function option_uncheck(){
+ 		$(':radio').prop('checked', false);
+ }
+
+amount_won = 0;
 $(document).ready(function() {
+	$("#next").hide();
+	$("#submit").hide();
+	$("#quit").hide();
+
 	$("#start").on('click',function(){
-		//alert("started");
-		total_questions = 3;
+		amount_won = 0;
+		total_questions = 5;
+		question_number = 0;
+		build_question();
+		option_unblock();
+		option_uncheck();
 		initiator();
+		$("#start").hide();
+		$("#submit").show();
+		$("#quit").show();
+		
 	});
 
 	$("#next").on('click',function(){
-		//alert("started");
 		if(total_questions!=0){
 		total_questions--;
 		clearInterval(timer);
+		option_uncheck();
+		option_unblock();
+		build_question();
+		$("#submit").show();
+		$("#next").hide();
 		initiator();
 		}else{
 			clearInterval(timer);
+			$("#start").show();
+			$("#next").hide();
+  			$("#quit").hide();
   			alert("Quiz over");
 		}
 	});
 
-	/*if(total_questions==0){
+	$("#submit").on('click',function(){
+		option_block();
 		clearInterval(timer);
-		alert("Quiz over");
-	}*/
+		answer_validation();
+		$("#submit").hide();
+	});
+
+	$("#quit").on('click',function(){
+		clearInterval(timer);
+		game_over();
+	});
 
 });
 
 
 //Question Array
-var questions = [{
-	question_index:001,
-	question:"",
+
+questions = [{
+	question_index:1,
+	question:"Which among the following is a language",
 	options :{
-		1:a,
-		2:b,
-		3:c,
-		4:d
+		a:"Rails",
+		b:"Django",
+		c:"Scala",
+		d:"Node Js"
 	},
-	correct_answer:1
+	correct_answer:'c'
 },
 {
-	question_index:002,
-	question:"",
+	question_index:2,
+	question:"Which one is the tallest",
 	options :{
-		1:a,
-		2:b,
-		3:c,
-		4:d
+		a:"Quitib Minar",
+		b:"Burj Khalifa",
+		c:"Anna Arch",
+		d:"Pyramid"
 	},
-	correct_answer:1
+	correct_answer:'b'
 },
 {
-	question_index:003,
-	question:"",
+	question_index:3,
+	question:"Which of these planets has a solid surface?",
 	options :{
-		1:a,
-		2:b,
-		3:c,
-		4:d
+		a:"Mars",
+		b:"Saturn",
+		c:"Jupiter",
+		d:"Uranus"
 	},
-	correct_answer:1
+	correct_answer:'a'
 },
 {
-	question_index:004,
-	question:"",
+	question_index:4,
+	question:"The International Literacy Day is observed on",
 	options :{
-		1:a,
-		2:b,
-		3:c,
-		4:d
+		a:"Mar 10",
+		b:"Oct 22",
+		c:"Sep 18",
+		d:"Dec 25"
 	},
-	correct_answer:1
+	correct_answer:'c'
 },{
-	question_index:005,
-	question:"",
+	question_index:5,
+	question:"Which of these viruses takes it's name from a place in Malaysia?",
 	options :{
-		1:a,
-		2:b,
-		3:c,
-		4:d
+		a:"Nipah",
+		b:"Ebola",
+		c:"Influenza",
+		d:"HIV"
 	},
-	correct_answer:1
-}];
-
-function email_validation(email){
-	var email_regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-	var is_email=email_regex.test(email_input.val());
-	if(is_email)
-		return true;
-	else
-		return false;
+	correct_answer:'c'
+},{
+	question_index:6,
+	question:"World's best music director",
+	options :{
+		a:"AR rahman",
+		b:"Hans zimmer",
+		c:"Beethoven",
+		d:"James Horner"
+	},
+	correct_answer:'b'
 }
-function mobile_number_validation(mobilenumber){
-	var mobile_regex = /^([6-9]+[\d]{9})?$/;
-	var is_mobile=mobile_regex.test(mobilenumber);
-	if(is_mobile)
-		return true;
-	else
-		return false;
+];
 
-}

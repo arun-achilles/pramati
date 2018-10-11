@@ -1,0 +1,121 @@
+body{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+header {
+    height: 60px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+footer {
+  height: 30px;
+}
+.headings {
+  color: green;
+}
+h3{
+  padding: 0px;
+  margin: 0px;
+}
+.dashed-line {
+  border: 1px dashed lightgray;
+}
+
+.paragraph {
+  padding: 0px;
+  margin: 0px;
+  font-family: arial;
+  font-size: 15px;
+}
+.navigator {
+  float: right;
+  padding-top: 10px;
+  padding-right: 50px;
+}
+.nav-img {
+  padding-left: 10px;
+}
+.nav-description {
+  float: bottom;
+  }
+.footer-nav {
+  float: right;
+}
+.nav-home {
+  padding-right: 20px;
+  padding-left: 0px;
+  border-right: 1px solid black; 
+}
+.nav-about {
+  padding-right: 20px;
+  padding-left: 20px;
+  border-right: 1px solid black; 
+
+}
+.nav-idea {
+  padding-left: 20px;
+  padding-right: 15px;
+
+}
+.logo {
+  float: left;
+  padding-left: 25px;
+}
+.banner_div {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.banner_image {
+  width: 100%;
+}
+
+.description{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.sub-description {
+   position: relative;
+   display: table;
+}
+.sub-content-left {
+  float: left;
+  width: 31%; 
+  padding-left: 10px;
+  padding-right: 10px;
+  border-right: 1.7px dashed lightgray;
+}
+.sub-content-middle {
+  float: left;
+  width: 31%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.sub-content-right {
+  float: left;
+  width: 32%;
+  text-align: justify;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 7px solid #99994d;
+  background-color: #e5e5cc;
+}
+.list {
+  margin: 5px;
+}
+.list-item {
+  list-style-image: url("../img/bullet.png");
+  margin-left: 50px;
+  padding-bottom: 15px;
+}
+
+.readmore-align {
+  padding-top: 50px;
+  float: right;
+  color: black;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
