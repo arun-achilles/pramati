@@ -1,74 +1,92 @@
 function initiator(){
 	timer = setInterval(function() {
-  		myTimer()
-			}, 1000);
-	var d = 5;
-
+		myTimer()
+		}, 1000);
+	var d = 30;
+	build_question();
 	function myTimer() {
 		if(d>=0){
-  		document.getElementById("timer").innerHTML = d--;
-  		}
-  		else{
-  			answer_validation();
-  			clearInterval(timer);
-  			if(total_questions!=0){
-  				total_questions--;
-  			}else{
-  				$("#submit").show();
-  				$("#next").hide();
-  				$("#quit").hide();
+  		$("#timer").html(d--);
+  	}
+  	else {
+			answer_validation();
+			clearInterval(timer);
+			if(total_questions==0){
+				$("#start").show();
+				$("#next").hide();
+				$("#quit").hide();
 
-  				alert("Quiz over");
-  			}
-  			
-  		}
+				alert("Quiz over");
+			}
+		}
 	}
 }
- function build_question(){
+function build_question(){
 
- 		$("#question").html(questions[question_number].question);
- 		$("#option_a").html(questions[question_number].options.a);
- 		$("#option_b").html(questions[question_number].options.b);
- 		$("#option_c").html(questions[question_number].options.c);
- 		$("#option_d").html(questions[question_number].options.d);
- 		
- }
+	$("#question").html(questions[question_number].question);
+	$("#option_a").html(questions[question_number].options.a);
+	$("#option_b").html(questions[question_number].options.b);
+	$("#option_c").html(questions[question_number].options.c);
+	$("#option_d").html(questions[question_number].options.d);
 
- function answer_validation(){
- 		if($('input[name=correctAnswer]:checked').val()==questions[question_number].correct_answer)
- 			{
- 				amount_won+=1000;
- 				question_number++;
- 				$(".amount").html(amount_won);
- 				$("#success_modal").modal();
- 				$("#next").show();
- 				$("#submit").hide();
- 			}else{
- 				$("#submit").hide();
- 				$("#amount").html(amount_won);
- 				$("#failure_modal").modal();
- 				//game_over();
- 			}
- }
+	option_unblock();
+	option_uncheck();
+		
+}
 
- function game_over(){
- 	$(".amount").html(amount_won);
- 		$("#submit").hide();
-  		$("#next").hide();
-  		$("#quit").hide();
-  		$("#start").show();
-  		$("#result_modal").modal();
+function answer_validation(){
+	$("#submit").hide();
+	if($('input[name=correctAnswer]:checked').val()==questions[question_number].correct_answer){
+		amount_won+=1000;
+		question_number++;
+		$("#next").show();
+		success_modal(amount_won);
+	}
+	else {
+		wrong_modal(amount_won);
+	}
+}
+
+function game_over(){
+	$("#amount").html(amount_won);
+		$("#submit").hide();
+		$("#next").hide();
+		$("#quit").hide();
+		$("#start").show();
+		game_over_modal(amount_won);
  }
 
  function option_block(){
- 		$(':radio').attr('disabled', true);
+ 	$(':radio').attr('disabled', true);
  }
  function option_unblock(){
- 		$(':radio').attr('disabled', false);
+ 	$(':radio').attr('disabled', false);
  }
  function option_uncheck(){
- 		$(':radio').prop('checked', false);
+ 	$(':radio').prop('checked', false);
  }
+
+function success_modal(money){
+	$("#modal_header").html("Hurray!");
+	$("#modal_body").html("Congratualations! You have won");
+	$("#amount").html(money);
+	$("#modal").modal();
+
+}
+
+function wrong_modal(money){
+	$("#modal_header").html("Ooops");
+	$("#modal_body").html("Sorry..Wrong answer");
+	$("#amount").html(money);
+	$("#modal").modal();
+}
+
+function game_over_modal(money){
+	$("#modal_header").html("Ooops");
+	$("#modal_body").html("GAME OVER !! The amount you have won is");
+	$("#amount").html(money);
+	$("#modal").modal();
+}
 
 amount_won = 0;
 $(document).ready(function() {
@@ -80,9 +98,6 @@ $(document).ready(function() {
 		amount_won = 0;
 		total_questions = 5;
 		question_number = 0;
-		build_question();
-		option_unblock();
-		option_uncheck();
 		initiator();
 		$("#start").hide();
 		$("#submit").show();
@@ -94,18 +109,16 @@ $(document).ready(function() {
 		if(total_questions!=0){
 		total_questions--;
 		clearInterval(timer);
-		option_uncheck();
-		option_unblock();
-		build_question();
 		$("#submit").show();
 		$("#next").hide();
 		initiator();
-		}else{
+		}
+		else {
 			clearInterval(timer);
 			$("#start").show();
 			$("#next").hide();
-  			$("#quit").hide();
-  			alert("Quiz over");
+  		$("#quit").hide();
+  		alert("Quiz over");
 		}
 	});
 

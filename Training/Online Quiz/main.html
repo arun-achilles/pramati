@@ -94,91 +94,33 @@
 			</div>
 		</div>
 
-		<!--timer-->
-	<!-- 	<div class="container mt-4">
-			<div class="row">
-				<div class="col-md-2 offset-md-5 bg-danger rounded">
-					<div class="time">
-	    				<p class="text-center">Seconds Left : <div class="timer text-center" id="timer"></div></p>
-	   				 </div>
-				</div>
-			</div>
-		</div> -->
 
 		<!--success modal-->
-		<div class="modal fade" id="success_modal">
+		<div class="modal fade" id="modal">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
 		      
 		        <!-- Modal Header -->
 		        <div class="modal-header">
-		          <h4 class="modal-title">Hurray!</h4>
+		          <h4 id = "modal_header" class="modal-title text-center"></h4>
 		          <button type="button" class="close" data-dismiss="modal">×</button>
 		        </div>
 		        
 		        <!-- Modal body -->
 		        <div class="modal-body text-center">
-		          Congratualtions you have won <h4 class="amount text-center text-success"></h4>
+		        	<h4 id = "modal_body" class="text-center" ></h4>
+		          <h4 id = "amount" class="amount text-center text-success"></h4>
 		        </div>
 		        
 		        <!-- Modal footer -->
 		        <div class="modal-footer">
-		          <button type="button" class="btn btn-success" data-dismiss="modal">Click to continue</button>
+		          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
 		        </div>
 		        
 		      </div>
 		    </div>
 		</div>
 
-		<!--failure modal-->
-		<div class="modal fade" id="failure_modal">
-		    <div class="modal-dialog">
-		      <div class="modal-content">
-		      
-		        <!-- Modal Header -->
-		        <div class="modal-header">
-		          <h4 class="modal-title">Oops</h4>
-		          <button type="button" class="close" data-dismiss="modal">×</button>
-		        </div>
-		        
-		        <!-- Modal body -->
-		        <div class="modal-body text-center">
-		          Sorry..Wrong answer <!-- <h4 class="amount text-center text-danger"></h4> -->
-		        </div>
-		        
-		        <!-- Modal footer -->
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-		        </div>
-		        
-		      </div>
-		    </div>
-		</div>
-
-		<!-- result modal-->
-		<div class="modal fade" id="result_modal">
-		    <div class="modal-dialog">
-		      <div class="modal-content">
-		      
-		        <!-- Modal Header -->
-		        <div class="modal-header">
-		          <h4 class="modal-title"></h4>
-		          <button type="button" class="close" data-dismiss="modal">×</button>
-		        </div>
-		        
-		        <!-- Modal body -->
-		        <div class="modal-body text-center">
-		           GAME OVER !! The amount you have won is <h4 class="amount text-center text-info"></h4>
-		        </div>
-		        
-		        <!-- Modal footer -->
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-		        </div>
-		        
-		      </div>
-		    </div>
-		</div>
-
+	
 	</body>
 </html>
