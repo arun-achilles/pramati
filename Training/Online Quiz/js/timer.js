@@ -1,66 +1,107 @@
 function initiator(){
 	timer = setInterval(function() {
-  		myTimer()
-			}, 1000);
-	var d = 20;
-
+		myTimer()
+		}, 1000);
+	var d = 30;
+	build_question();
 	function myTimer() {
 		if(d>=0){
-  		document.getElementById("timer").innerHTML = d--;
-  		}
-  		else{
-  			answer_validation();
-  			clearInterval(timer);
-  			if(total_questions!=0){
-  				total_questions--;
-  			}else{
-  				alert("Quiz over");
-  			}
-  			
-  		}
+  		$("#timer").html(d--);
+  	}
+  	else {
+			answer_validation();
+			clearInterval(timer);
+			if(total_questions==0){
+				$("#start").show();
+				$("#next").hide();
+				$("#quit").hide();
+
+				alert("Quiz over");
+			}
+		}
 	}
 }
- function build_question(){
+function build_question(){
 
- 		$("#question").html(questions[question_number].question);
- 		$("#option_a").html(questions[question_number].options.a);
- 		$("#option_b").html(questions[question_number].options.b);
- 		$("#option_c").html(questions[question_number].options.c);
- 		$("#option_d").html(questions[question_number].options.d);
- 		
- }
+	$("#question").html(questions[question_number].question);
+	$("#option_a").html(questions[question_number].options.a);
+	$("#option_b").html(questions[question_number].options.b);
+	$("#option_c").html(questions[question_number].options.c);
+	$("#option_d").html(questions[question_number].options.d);
 
- function answer_validation(){
- 		if($('input[name=correctAnswer]:checked').val()==questions[question_number].correct_answer)
- 			{
- 				alert("success");
- 				//$("#myModal").modal();
- 			}else{
- 				alert("Wrong");
- 			}
- 			question_number++;
+	option_unblock();
+	option_uncheck();
+		
+}
+
+function answer_validation(){
+	$("#submit").hide();
+	if($('input[name=correctAnswer]:checked').val()==questions[question_number].correct_answer){
+		amount_won+=1000;
+		question_number++;
+		$("#next").show();
+		success_modal(amount_won);
+	}
+	else {
+		wrong_modal(amount_won);
+	}
+}
+
+function game_over(){
+	$("#amount").html(amount_won);
+		$("#submit").hide();
+		$("#next").hide();
+		$("#quit").hide();
+		$("#start").show();
+		game_over_modal(amount_won);
  }
 
  function option_block(){
- 		$(':radio').attr('disabled', true);
+ 	$(':radio').attr('disabled', true);
  }
  function option_unblock(){
- 		$(':radio').attr('disabled', false);
+ 	$(':radio').attr('disabled', false);
  }
  function option_uncheck(){
- 		$(':radio').prop('checked', false);
+ 	$(':radio').prop('checked', false);
  }
 
+function success_modal(money){
+	$("#modal_header").html("Hurray!");
+	$("#modal_body").html("Congratualations! You have won");
+	$("#amount").html(money);
+	$("#modal").modal();
+
+}
+
+function wrong_modal(money){
+	$("#modal_header").html("Ooops");
+	$("#modal_body").html("Sorry..Wrong answer");
+	$("#amount").html(money);
+	$("#modal").modal();
+}
+
+function game_over_modal(money){
+	$("#modal_header").html("Ooops");
+	$("#modal_body").html("GAME OVER !! The amount you have won is");
+	$("#amount").html(money);
+	$("#modal").modal();
+}
+
+amount_won = 0;
 $(document).ready(function() {
+	$("#next").hide();
+	$("#submit").hide();
+	$("#quit").hide();
+
 	$("#start").on('click',function(){
-		//alert("started");
-		//$("#myModal").modal();
+		amount_won = 0;
 		total_questions = 5;
 		question_number = 0;
-		build_question();
-		option_unblock();
-		option_uncheck();
 		initiator();
+		$("#start").hide();
+		$("#submit").show();
+		$("#quit").show();
 		
 	});
 
@@ -68,13 +109,16 @@ $(document).ready(function() {
 		if(total_questions!=0){
 		total_questions--;
 		clearInterval(timer);
-		option_uncheck();
-		option_unblock();
-		build_question();
+		$("#submit").show();
+		$("#next").hide();
 		initiator();
-		}else{
+		}
+		else {
 			clearInterval(timer);
-  			alert("Quiz over");
+			$("#start").show();
+			$("#next").hide();
+  		$("#quit").hide();
+  		alert("Quiz over");
 		}
 	});
 
@@ -82,14 +126,13 @@ $(document).ready(function() {
 		option_block();
 		clearInterval(timer);
 		answer_validation();
-		
+		$("#submit").hide();
 	});
 
-
-	/*if(total_questions==0){
+	$("#quit").on('click',function(){
 		clearInterval(timer);
-		alert("Quiz over");
-	}*/
+		game_over();
+	});
 
 });
 
@@ -149,5 +192,16 @@ questions = [{
 		d:"HIV"
 	},
 	correct_answer:'c'
-}];
+},{
+	question_index:6,
+	question:"World's best music director",
+	options :{
+		a:"AR rahman",
+		b:"Hans zimmer",
+		c:"Beethoven",
+		d:"James Horner"
+	},
+	correct_answer:'b'
+}
+];
 

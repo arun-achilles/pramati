@@ -1,139 +1,144 @@
 $(document).ready(function() {
-	flag=0;
-	name_validator=0;
-	email_validator=0;
-	mobile_validator=0;
-				$("#dob").datepicker({
-					format: 'mm-dd-yyyy',
-					endDate: '-1d',
-					autoclose: true
-				});
-				
-	//DOB Validation
-				$(".dob").on('focus', function() {
-					hide_error($(this));
-				});
-		
-	//NAME Validation
-    			$(".name").keyup(function() {
-					$('.name').css('textTransform', 'capitalize');
-	
-					var is_name=$(this).val();
-					if(name_validation(is_name)){
-						name_validator=0;
-						hide_error($(this));
-					}
-					else{
-						name_validator=1;
-						show_error($(this));
-					}
-				});
+	fields_empty = 0;
+	name_validator = 0;
+	email_validator = 0;
+	mobile_validator = 0;
+	dob_validator = 0;
+	name_regex = /^[A-Za-z]{1}[A-Za-z\s]+$/;
+	email_regex = /^[A-Za-z][A-Za-z0-9._%+-]{0,63}@(?:[A-Za-z0-9-]{1,10}\.){1,125}[A-Za-z]{2,5}$/;
+	mobile_regex = /^([6-9]+[\d]{9}){1}?$/;
 
-	//EMAIL VALIDATION
-				$('.contact_email').on('input', function() {
-				var email_input=$(this);
-				if(email_validation(email_input.val())){
-					email_validator=0;
-					hide_error($(this));
-					}
-				else{
-					email_validator=1;
-					show_error($(this));
-				}
-				});
-			
-				
-	//Mobile Validation
-				$('.contact_mobile').on('input',function() {
-					var mobile=$(this);
-				if (mobile_number_validation(mobile.val())) {
-					mobile_validator=0;
-					hide_error($(this));
-				}
-				else {mobile_validator=1;
-					show_error($(this));
-				}
-				});
-						
+	$(".dob").datepicker({
+		format: 'mm-dd-yyyy',
+		minDate: new Date('1900, 1 - 1, 1'),
+		maxDate: '-1d',
+		onClose: function(date){
+			dob_validation(date, $(this));
+		},
+		autoclose: true
 	});
-	//INSERTION
-	
-	function Insert(){
-		var first_name = $("#first_name").val();
-		var last_name = $("#last_name").val();
-		var dob = $("#dob").val();
-		var email = $("#contact_email").val();
-		var mobile = $("#contact_mobile").val();
-		//alert("fname-"+first_name+"lname-"+last_name+"dob-"+dob+"email-"+email);
-		if(first_name==""||last_name==""||dob==""||email==""||mobile==""){
-			flag=1;
-			if(first_name=="")
-				$("#firstname_error").show();
-			if(last_name=="")
-				$("#lastname_error").show();
-			if(dob=="")
-				$("#dob_error").show();
-			if(email=="")
-				$("#email_error").show();
-			if(mobile=="")
-				$("#mobile_error").show();
-		}else{
-			flag=0;
+	//NAME Validation
+	$(".name").on('input', function() {
+		var name_input = $(this).val();
+		name_validator = regex_checker(name_input, name_regex, $(this), "Name");
+	});
+	//EMAIL VALIDATION
+	$('.contact_email').on('input', function() {
+		var email_input = $(this).val();
+		email_validator = regex_checker(email_input, email_regex, $(this), "Email ID");
+	});				
+	//Mobile Validation
+	$('.contact_mobile').on('input',function() {
+		var mobile_input = $(this).val();
+		mobile_validator = regex_checker(mobile_input, mobile_regex, $(this), "Mobile Number");
+	});
+						
+});
+	//INSERTION	
+function Insert(){
+	var first_name = $("#first_name").val();
+	var last_name = $("#last_name").val();
+	var dob = $("#dob").val();
+	var email = $("#contact_email").val();
+	var mobile = $("#contact_mobile").val();
+	if(first_name==""||last_name==""||dob==""||email==""||mobile==""){
+		fields_empty = 1;
+		empty_validation();
+		} else {
+			fields_empty = 0;
 		}
-		if(name_validator==0&&email_validator==0&&mobile_validator==0&&flag==0){
-			first_name = capitalizeName($("#first_name").val());
-			last_name = capitalizeName($("#last_name").val());
-			var row = "<tr><td>" + first_name + "</td><td>" + last_name + "</td><td>" + email + "</td><td>" + dob + "</td><td>" + mobile + "</td></tr>";
-				$("#contact tbody").append(row);
-				$("#user_form").trigger("reset");
-		}else{
-			//alert("Please check if all the fields are entered properly");
+	if(name_validator==0&&email_validator==0&&mobile_validator==0&&dob_validator==0&&fields_empty==0)
+		build_data(first_name,last_name,email,dob,mobile);
+}
+function empty_validation(){
+	$('#user_form input').each(
+    function() {
+      if ($(this).val() < 1) {
+        var error_name = $(this).attr('name');
+        $(this).parent().find('span').text(error_name + "  Cannot be blank");
+      }
+  });
+}
+function build_data(first_name,last_name,email,dob,mobile){
+	first_name = capitalizeName($("#first_name").val());
+	last_name = capitalizeName($("#last_name").val());
+	var row = "<tr><td>" + first_name + "</td><td>" + last_name + "</td><td>" + email + "</td><td>" + mobile + "</td><td>" + dob + "</td></tr>";
+		$("#contact tbody").append(row);
+		$("#user_form").trigger("reset");
+}
+function dob_validation(date, object){
+	if(new Date(date) < new Date(01/01/1990) || new Date(date) > new Date()){
+		object.parent().find($(".error")).text("Date should be between 1900-present");
+		dob_validator = 1;
+		} else {
+				object.parent().find($(".error")).text("");
+				dob_validator = 0;
 		}
+}
+function capitalizeName(str) {
+	str = str.split(" ");
+	for (var i = 0, x = str.length; i < x; i++) {
+		str[i] = str[i][0].toUpperCase() + str[i].substr(1);
 	}
-
-	function capitalizeName(str) {
-		str = str.split(" ");
-		for (var i = 0, x = str.length; i < x; i++) {
-			str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-		}
-		str = str.join(" ");
-		return str;
+	str = str.join(" ");
+	return str;
+}
+//regex checker
+function regex_checker(name, regex, object, error_field){
+	if(regex.test(name)){
+		object.parent().find($(".error")).text("");
+		return 0;
+	} 
+	else {
+		object.parent().find($(".error")).text("Invalid "+error_field);
+		return 1;
 	}
+}
+//error functions
+/*function show_error(object){
+	object.parent().find($(".error")).show();
+}
 
+function hide_error(object){
+	object.parent().find($(".error")).hide();
+}*/
+
+/*function shows_error(object, flag){
+	flag = 1
+	object.parent().find($(".error")).show();
+	return flag
+}
+
+function hides_error(object, flag){
+	flag = 0
+	object.parent().find($(".error")).hide();
+	return flag
+}
+*/
 //Validating Functions
 
-	function email_validation(email){
-		var email_regex = /^[A-Za-z][A-Za-z0-9._%+-]{0,63}@(?:[A-Za-z0-9-]{1,10}\.){1,125}[A-Za-z]{2,5}$/;
-		var is_email=email_regex.test(email);
-		if(is_email)
-			return true;
-		else
-			return false;
-	}
-	function mobile_number_validation(mobilenumber){
-		var mobile_regex = /^([6-9]+[\d]{9}){1}?$/;
-		var is_mobile=mobile_regex.test(mobilenumber);
-		if(is_mobile)
-			return true;
-		else
-			return false;
+/*function email_validation(email){
+	var email_regex = /^[A-Za-z][A-Za-z0-9._%+-]{0,63}@(?:[A-Za-z0-9-]{1,10}\.){1,125}[A-Za-z]{2,5}$/;
+	var is_email=email_regex.test(email);
+	if(is_email)
+		return true;
+	else
+		return false;
+}
+function mobile_number_validation(mobilenumber){
+	var mobile_regex = /^([6-9]+[\d]{9}){1}?$/;
+	var is_mobile=mobile_regex.test(mobilenumber);
+	if(is_mobile)
+		return true;
+	else
+		return false;
 
-	}
-	function name_validation(name){
-		var name_regex = /^[A-Za-z][A-Za-z]{2,60}$/;
-		if(name_regex.test(name))
-			return true;
-		else
-			return false;
-		
-	}
-
-//error functions
-
-	function show_error(object){
-		object.parent().find($(".error")).show();
-	}
-
-	function hide_error(object){
-		object.parent().find($(".error")).hide();
-	}
+}
+function name_validation(name){
+	var name_regex = /^[A-Za-z][A-Za-z]{2,60}$/;
+	if(name_regex.test(name))
+		return true;
+	else
+		return false;
+	
+}*/

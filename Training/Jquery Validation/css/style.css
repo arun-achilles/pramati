@@ -1,9 +1,7 @@
 
-
-.error{
-	display: none;
-}		
-
+.capitalize {
+	text-transform: capitalize;
+}
 
 
 
