@@ -1,26 +1,21 @@
 function initiator(){
+	var time = 30;
 	timer = setInterval(function() {
-		myTimer()
+		myTimer(time--)
 		}, 1000);
-	var d = 30;
 	build_question();
-	function myTimer() {
-		if(d>=0){
-  		$("#timer").html(d--);
-  	}
-  	else {
-			answer_validation();
-			clearInterval(timer);
-			if(total_questions==0){
-				$("#start").show();
-				$("#next").hide();
-				$("#quit").hide();
+	
+}
 
-				alert("Quiz over");
-			}
-		}
+function myTimer(time) {
+	if(time>=0){
+		$("#timer").html(time--);
+	}
+	else {
+		answer_validation();
 	}
 }
+
 function build_question(){
 
 	$("#question").html(questions[question_number].question);
@@ -29,6 +24,8 @@ function build_question(){
 	$("#option_c").html(questions[question_number].options.c);
 	$("#option_d").html(questions[question_number].options.d);
 
+	$("#submit").show();
+	$("#next").hide();
 	option_unblock();
 	option_uncheck();
 		
@@ -36,24 +33,41 @@ function build_question(){
 
 function answer_validation(){
 	$("#submit").hide();
+	total_questions--;
+	clearInterval(timer);
+	option_block();
+
 	if($('input[name=correctAnswer]:checked').val()==questions[question_number].correct_answer){
-		amount_won+=1000;
+		correct_answer();
+	}
+	else {
+		wrong_modal();
+	}
+}
+
+function correct_answer(){
+	amount_won+=1000;
+	if(total_questions==0){
+		game_over();
+		millionaire_modal("Million");
+	}
+	else {
 		question_number++;
 		$("#next").show();
 		success_modal(amount_won);
 	}
-	else {
-		wrong_modal(amount_won);
-	}
+}
+
+function quitter(){
+	game_over();
+	game_over_modal(amount_won);
 }
 
 function game_over(){
-	$("#amount").html(amount_won);
-		$("#submit").hide();
 		$("#next").hide();
 		$("#quit").hide();
+		$("#submit").hide();
 		$("#start").show();
-		game_over_modal(amount_won);
  }
 
  function option_block(){
@@ -77,18 +91,25 @@ function success_modal(money){
 function wrong_modal(money){
 	$("#modal_header").html("Ooops");
 	$("#modal_body").html("Sorry..Wrong answer");
-	$("#amount").html(money);
+	$("#amount").html("");
 	$("#modal").modal();
 }
 
 function game_over_modal(money){
-	$("#modal_header").html("Ooops");
+	$("#modal_header").html("You lost the Biggest Chance");
 	$("#modal_body").html("GAME OVER !! The amount you have won is");
 	$("#amount").html(money);
 	$("#modal").modal();
 }
 
-amount_won = 0;
+function millionaire_modal(money){
+	$("#modal_header").html("Winner Winner Chicken Dinner");
+	$("#modal_body").html("You have entered into the list of Millionaire!");
+	$("#amount").html(money);
+	$("#modal").modal();
+}
+
+
 $(document).ready(function() {
 	$("#next").hide();
 	$("#submit").hide();
@@ -96,7 +117,7 @@ $(document).ready(function() {
 
 	$("#start").on('click',function(){
 		amount_won = 0;
-		total_questions = 5;
+		total_questions = 6;
 		question_number = 0;
 		initiator();
 		$("#start").hide();
@@ -106,32 +127,16 @@ $(document).ready(function() {
 	});
 
 	$("#next").on('click',function(){
-		if(total_questions!=0){
-		total_questions--;
-		clearInterval(timer);
-		$("#submit").show();
-		$("#next").hide();
 		initiator();
-		}
-		else {
-			clearInterval(timer);
-			$("#start").show();
-			$("#next").hide();
-  		$("#quit").hide();
-  		alert("Quiz over");
-		}
 	});
 
 	$("#submit").on('click',function(){
-		option_block();
-		clearInterval(timer);
 		answer_validation();
-		$("#submit").hide();
 	});
 
 	$("#quit").on('click',function(){
 		clearInterval(timer);
-		game_over();
+		quitter();
 	});
 
 });

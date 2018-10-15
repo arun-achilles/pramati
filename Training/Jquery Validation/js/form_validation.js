@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	name_regex = /^[A-Za-z]{1}[A-Za-z\s]+$/;
+	name_regex = /^[A-Za-z\s]+$/;
 	email_regex = /^[A-Za-z][A-Za-z0-9._%+-]{0,63}@(?:[A-Za-z0-9-]{1,10}\.){1,125}[A-Za-z]{2,5}$/;
 	mobile_regex = /^([6-9]+[\d]{9}){1}?$/;
 	dob_validator = 0;
