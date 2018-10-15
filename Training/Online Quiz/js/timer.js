@@ -17,7 +17,6 @@ function myTimer(time) {
 }
 
 function build_question(){
-
 	$("#question").html(questions[question_number].question);
 	$("#option_a").html(questions[question_number].options.a);
 	$("#option_b").html(questions[question_number].options.b);
