@@ -53,6 +53,10 @@ function correct_answer(){
 	else {
 		question_number++;
 		$("#next").show();
+<<<<<<< HEAD
+		$('#current_amount').html(amount_won);
+=======
+>>>>>>> 0ed48d6b045f6185e3d8bab096296bb0d072c3d4
 		success_modal(amount_won);
 	}
 }
@@ -67,6 +71,13 @@ function game_over(){
 		$("#quit").hide();
 		$("#submit").hide();
 		$("#start").show();
+<<<<<<< HEAD
+		$("#question").html("Click Start");
+		$("#option_a").html("");
+		$("#option_b").html("");
+		$("#option_c").html("");
+		$("#option_d").html("");
+		$('#current_amount').html("");
  }
 
  function option_block(){
@@ -79,6 +90,20 @@ function game_over(){
  	$(':radio').prop('checked', false);
  }
 
+=======
+ }
+
+ function option_block(){
+ 	$(':radio').attr('disabled', true);
+ }
+ function option_unblock(){
+ 	$(':radio').attr('disabled', false);
+ }
+ function option_uncheck(){
+ 	$(':radio').prop('checked', false);
+ }
+
+>>>>>>> 0ed48d6b045f6185e3d8bab096296bb0d072c3d4
 function success_modal(money){
 	$("#modal_header").html("Hurray!");
 	$("#modal_body").html("Congratualations! You have won");
@@ -137,6 +162,25 @@ $(document).ready(function() {
 		clearInterval(timer);
 		quitter();
 	});
+<<<<<<< HEAD
+
+	$('#a').on('click',function(){
+		$("#a_radio").prop("checked", true);
+	});
+
+	$('#b').on('click',function(){
+		$("#b_radio").prop("checked", true);
+	})
+
+	$('#c').on('click',function(){
+		$("#c_radio").prop("checked", true);
+	})
+
+	$('#d').on('click',function(){
+		$("#d_radio").prop("checked", true);
+	})
+=======
+>>>>>>> 0ed48d6b045f6185e3d8bab096296bb0d072c3d4
 
 });
 
