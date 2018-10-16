@@ -17,7 +17,6 @@ function myTimer(time) {
 }
 
 function build_question(){
-
 	$("#question").html(questions[question_number].question);
 	$("#option_a").html(questions[question_number].options.a);
 	$("#option_b").html(questions[question_number].options.b);
@@ -54,6 +53,7 @@ function correct_answer(){
 	else {
 		question_number++;
 		$("#next").show();
+		$('#current_amount').html(amount_won);
 		success_modal(amount_won);
 	}
 }
@@ -68,6 +68,12 @@ function game_over(){
 		$("#quit").hide();
 		$("#submit").hide();
 		$("#start").show();
+		$("#question").html("Click Start");
+		$("#option_a").html("");
+		$("#option_b").html("");
+		$("#option_c").html("");
+		$("#option_d").html("");
+		$('#current_amount').html("");
  }
 
  function option_block(){
@@ -138,6 +144,22 @@ $(document).ready(function() {
 		clearInterval(timer);
 		quitter();
 	});
+
+	$('#a').on('click',function(){
+		$("#a_radio").prop("checked", true);
+	});
+
+	$('#b').on('click',function(){
+		$("#b_radio").prop("checked", true);
+	})
+
+	$('#c').on('click',function(){
+		$("#c_radio").prop("checked", true);
+	})
+
+	$('#d').on('click',function(){
+		$("#d_radio").prop("checked", true);
+	})
 
 });
 
