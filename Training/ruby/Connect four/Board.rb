@@ -107,7 +107,8 @@ class Board
 				break
 			end
 		end
-		if counter>3
+		#puts "+ve--->#{counter}"
+		if counter==4
 			return true
 		else
 			return false
@@ -132,13 +133,14 @@ class Board
 		while row>=0 && column>=0
 			if @@board[row][column] == symbol
 				counter+=1
-				row+=1
+				row-=1
 				column-=1
 			else
 				break
 			end
 		end
-		if counter>3
+		#puts "-ve--->#{counter}"
+		if counter==4
 			return true
 		else
 			return false
