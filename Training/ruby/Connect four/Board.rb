@@ -9,17 +9,18 @@ class Board
 			@@board[row] = []
 
 			@@columns.times do
-				@@board[row] << 0
+				@@board[row] << '.'
 			end
 		end
 	end
 
 	def print_board
+		puts "----------\nWelcome to Connect 4\n----------"
 		for row in @@board
 			for col in row
-				print "#{col}\t"
+				print "#{col}  "
 			end
-			puts
+			puts "\n"
 		end
 	end
 
@@ -40,10 +41,14 @@ class Board
 
 	#checkers
 	def position_chooser(column, row)
-		while @@board[row][column]!=0
+		while @@board[row][column]!='.' && row>-1
 			row = row-1
 		end
-		return row
+		if row <0
+			return -1
+		else
+			return row
+		end
 	end
 
 	def vertical_checker(column, symbol)
@@ -90,6 +95,7 @@ class Board
 		while i>=0 && j<@@columns
 			if @@board[i][j] == symbol
 				counter+=1
+				return true if counter == 4
 				i-=1
 				j+=1
 			else
@@ -101,18 +107,14 @@ class Board
 		while row<@@rows && column>=0
 			if @@board[row][column] == symbol
 				counter+=1
+				return true if counter == 4
 				row+=1
 				column-=1
 			else
 				break
 			end
 		end
-		#puts "+ve--->#{counter}"
-		if counter==4
-			return true
-		else
-			return false
-		end
+		return false
 	end
 
 	def negative_diagonal(row, column, symbol)
@@ -122,6 +124,7 @@ class Board
 		while i<@@rows && j<@@columns
 			if @@board[i][j] == symbol
 				counter+=1
+				return true if counter == 4
 				i+=1
 				j+=1
 			else
@@ -133,19 +136,17 @@ class Board
 		while row>=0 && column>=0
 			if @@board[row][column] == symbol
 				counter+=1
+				return true if counter == 4
 				row-=1
 				column-=1
 			else
 				break
 			end
 		end
-		#puts "-ve--->#{counter}"
-		if counter==4
-			return true
-		else
-			return false
-		end
+		return false
 	end
 
 end
+
+
 
