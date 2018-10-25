@@ -82,12 +82,26 @@ class Board
 	end
 
 	def diagonal_checker(row, column, symbol)
-		if positive_diagonal(row,column,symbol) || negative_diagonal(row,column,symbol)
-			return true
-		end
+		return true	if diagonal_match(row, column,[[+1,-1],[-1,+1]], symbol) || diagonal_match(row, column,[[-1,-1],[+1,+1]], symbol)			#if positive_diagonal(row,column,symbol) || negative_diagonal(row,column,symbol)
 		return false
 	end
 
+	def diagonal_match(row, column, direction, symbol)
+		counter = 0
+		2.times do
+			adder = direction.shift
+			i = row+adder[0]
+			j = column+adder[1]
+			while i<@@rows && j<@@columns && i>=0 && j>=0
+				counter+=1 if @@board[i][j] == symbol
+				return true if counter == 3
+				i = i+adder[0]
+				j = j+adder[1]
+			end
+		end
+		return false
+	end
+=begin
 	def positive_diagonal(row, column, symbol)
 		counter = 0
 		i = row
@@ -145,6 +159,7 @@ class Board
 		end
 		return false
 	end
+=end
 
 end
 

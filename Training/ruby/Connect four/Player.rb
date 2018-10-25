@@ -16,7 +16,7 @@ class Player
 		toggler = true
 		while !@@win && !@@draw
 			if toggler
-				if activePlayerInserts(1, '+')
+				if activePlayer(1, '+')
 					toggler = !toggler
 				end
 			else
