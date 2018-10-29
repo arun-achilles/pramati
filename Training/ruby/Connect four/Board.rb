@@ -16,27 +16,26 @@ class Board
 
 	def print_board
 		puts "----------\nWelcome to Connect 4\n----------"
-		for row in @@board
-			for col in row
-				print "#{col}  "
-			end
-			puts "\n"
+
+		@@board.each do |row| 
+			row.each do |col|
+		 		print "#{col} "
+		 	end
+		 	puts
 		end
 	end
 
 	def coin_insert(column, symbol)
-		result_hash = {}
-		row_value = self.position_chooser(column, @@rows-1)
+		row_value = position_chooser(column, @@rows-1)
+		puts row_value
 		if row_value == -1
 			puts "--------The Column is full.----------"
-			result_hash["inserted"] = false
+			result_hash = { "inserted" => false }
 		else
 			@@board[row_value][column] = symbol
-			result_hash["inserted"] = true
-			result_hash["row"] = row_value
-			result_hash["column"] = column
+			result_hash = { "inserted" => true, "row" => row_value, "column" => column }
 		end
-		return result_hash
+		result_hash
 	end
 
 	#checkers
@@ -44,29 +43,50 @@ class Board
 		while @@board[row][column]!='.' && row>-1
 			row = row-1
 		end
-		if row <0
-			return -1
-		else
-			return row
-		end
+		row
 	end
 
+	def win_checker(row, column, symbol)
+		return true	if connect4_validation(row, column,[[+1,-1],[-1,+1]], symbol) || connect4_validation(row, column,[[-1,-1],[+1,+1]], symbol) ||  connect4_validation(row, column,[[-1,0],[+1,0]], symbol) ||  connect4_validation(row, column,[[0,-1],[0,+1]], symbol) 			#if positive_diagonal(row,column,symbol) || negative_diagonal(row,column,symbol)
+		return false
+	end
+
+	def connect4_validation(row, column, direction, symbol)
+		counter = 0
+		2.times do
+			adder = direction.shift
+			row_direction = row+adder[0]
+			col_direction = column+adder[1]
+			while limit?(row_direction, col_direction)       #(0..5).include?(i) && (0..6).include?(j) #i<@@rows && j<@@columns && i>=0 && j>=0
+				if @@board[row_direction][col_direction] == symbol
+					counter+=1 
+					return true if counter == 3
+				else
+					break
+				end
+				row_direction = row_direction+adder[0]
+				col_direction = col_direction+adder[1]
+			end
+		end
+		return false
+	end
+
+	def limit?(i, j)
+		(0..5).include?(i) && (0..6).include?(j)
+	end
+
+=begin
 	def vertical_checker(column, symbol)
 		array = []
 		@@rows.times do |row|
 			array[row] = @@board[row][column]
 		end
-		return connect4_checker(array, symbol)
+	  connect4_checker(array, symbol)
 	end
 
 	def horizontal_checker(row, symbol)
-		array = []
-		@@columns.times do |col|
-			array[col] = @@board[row][col]
-		end
-		return connect4_checker(array, symbol)
+		connect4_checker(@@board[row], symbol)
 	end
-
 
 	def connect4_checker(array, symbol)
 		counter = 0
@@ -80,27 +100,8 @@ class Board
 		end
 		return false
 	end
+=end	
 
-	def diagonal_checker(row, column, symbol)
-		return true	if diagonal_match(row, column,[[+1,-1],[-1,+1]], symbol) || diagonal_match(row, column,[[-1,-1],[+1,+1]], symbol)			#if positive_diagonal(row,column,symbol) || negative_diagonal(row,column,symbol)
-		return false
-	end
-
-	def diagonal_match(row, column, direction, symbol)
-		counter = 0
-		2.times do
-			adder = direction.shift
-			i = row+adder[0]
-			j = column+adder[1]
-			while i<@@rows && j<@@columns && i>=0 && j>=0
-				counter+=1 if @@board[i][j] == symbol
-				return true if counter == 3
-				i = i+adder[0]
-				j = j+adder[1]
-			end
-		end
-		return false
-	end
 =begin
 	def positive_diagonal(row, column, symbol)
 		counter = 0
@@ -162,6 +163,4 @@ class Board
 =end
 
 end
-
-
 
