@@ -33,25 +33,20 @@ class Player
 			@@draw = true
 			return false
 		end
-		puts "------------Player #{player_id} : Enter the Column value-------------"
-		input = gets.to_i
+		input = nil
+		until [1,2,3,4,5,6,7].include?(input) do
+			puts "------------Player #{player_id} : Enter the Column value-------------"
+			input = gets.to_i
+		end
 		insert_outcome = @@game.coin_insert(input-1, player_symbol)
 		if insert_outcome["inserted"]
 			@@counter+=1
 			system "clear"
 			@@game.print_board
-			if win_checker(insert_outcome["row"], insert_outcome["column"], player_symbol)
+			if @@game.win_checker(insert_outcome["row"], insert_outcome["column"], player_symbol)
 				puts "!!!!!!!player #{player_id} won the game.!!!!!!!!"
 				@@win = true
 			end
-			return true
-		else
-			return false
-		end
-	end
-
-	def win_checker(row, column, symbol)
-		if  @@game.horizontal_checker(row, symbol) || @@game.vertical_checker(column, symbol) || @@game.diagonal_checker(row, column, symbol)
 			return true
 		else
 			return false
