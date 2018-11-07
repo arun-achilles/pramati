@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   #post    'cart/create'        => 'cart#create'
   post    'login'       => 'sessions#create'
   post    'register'    => 'customers#create'
-  get  'cart/create/' => 'carts#create'
+  get     'carts/create/:id'   => 'cart#create'
+  get     'carts/remove/:id'   => 'cart#remove'
 
   resources :customer
 end

@@ -14,22 +14,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Dada</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right"> €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
-                        
+                        <% @cartitems.each do |item| %>
+                            <tr>
+                                <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                                <td><%= item.product.name %></td>
+                                <td>In stock</td>
+                                <td><input class="form-control" type="text" value="<%= item.quantity %>"/></td>
+                                <td class="text-right"> <%= item.product.price %>&#8377</td>
+                                <td class="text-right"><a href="/carts/remove/<%= item.product.id %>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</button> </td>
+                            </tr>
+                        <% end %>
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>Sub-Total</td>
-                            <td class="text-right"> €</td>
+                            <td class="text-right"> &#8377</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -37,7 +38,7 @@
                             <td></td>
                             <td></td>
                             <td>Shipping</td>
-                            <td class="text-right"> €</td>
+                            <td class="text-right"> 50 &#8377</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -45,7 +46,7 @@
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong> €</strong></td>
+                            <td class="text-right"><strong> &#8377</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -54,7 +55,7 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                    <button class="btn btn-block btn-light" href = "/index">Continue Shopping</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
                     <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
