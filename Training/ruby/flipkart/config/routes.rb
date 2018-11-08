@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'payment/index'
+  get 'order/index'
+  get 'product/index'
   get 'cart/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root    'store#main', as: 'store'
@@ -12,6 +15,8 @@ Rails.application.routes.draw do
   post    'register'    => 'customers#create'
   get     'carts/create/:id'   => 'cart#create'
   get     'carts/remove/:id'   => 'cart#remove'
+  get     'product/index/:id'  => 'product#index'
+  get     'order'       => 'order#index'
 
   resources :customer
 end

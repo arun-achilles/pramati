@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+ .image-box {
+	 max-width: 250px;
+	 max-height: 250px;
+ }
+
+ .thumbnail {
+	 max-width: 50px;
+	 max-height: 50px;
+ }

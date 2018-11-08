@@ -1,31 +1,43 @@
 class CartController < ApplicationController
   def index
-    @cart = Cart.find_by_customer_id(current_user.id)
-    @cartitems = @cart.cart_items
+    @cartitems = current_cart.cart_items
   end
 
   def create
-    @cart = Cart.find_by_customer_id(current_user.id)
-    if @cart 
-     saveCartItem
+    if current_cart 
+     addCartItem
     else
       @cart = Cart.new({:customer_id => current_user.id, :CheckedOut => false})
       if @cart.save
-        saveCartItem
+        addCartItem
       end
     end
   end
 
   def remove
-    @cartitems.where(:product_id => params[:id]).destroy
+    current_cart.cart_items.where(:product_id => params[:id]).destroy_all
     redirect_to '/cart'
   end
 
-  def saveCartItem
-   @cItem = CartItem.new({:cart_id => @cart.id, :product_id => params[:id], :quantity => 1} )
-    if @cItem.save
+private
+  def addCartItem
+    if alreadyCarted?
+      prod = CartItem.find current_cart.cart_items.where(:product_id => params[:id]).first.id
+      prod.increment!(:quantity)
       redirect_to '/cart'
+    else
+      @cItem = CartItem.new({:cart_id => current_cart.id, :product_id => params[:id], :quantity => 1} )
+      if @cItem.save
+        redirect_to '/cart'
+      end
     end
   end
 
+  def alreadyCarted?
+    if current_cart
+      current_cart.cart_items.where(:product_id => params[:id]).first
+    else
+      @cart.cart_items.where(:product_id => params[:id]).first
+    end
+  end
 end
