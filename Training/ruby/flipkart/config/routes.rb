@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'payment/index'
   get 'order/index'
   get 'product/index'
   get 'cart/index'
@@ -9,14 +8,16 @@ Rails.application.routes.draw do
   get     'sign_up'     => 'customers#new', as: 'sign_up'
   get     'sign_in'     => 'sessions#new', as: 'sign_in'
   get     'sign_out'    => 'sessions#destroy'
+
   get     'cart'        => 'cart#index'
-  #post    'cart/create'        => 'cart#create'
   post    'login'       => 'sessions#create'
   post    'register'    => 'customers#create'
   get     'carts/create/:id'   => 'cart#create'
   get     'carts/remove/:id'   => 'cart#remove'
   get     'product/index/:id'  => 'product#index'
+  get     'payment'            => 'payment#index'
   get     'order'       => 'order#index'
+  post    'order/create' => 'order#create'
 
   resources :customer
 end

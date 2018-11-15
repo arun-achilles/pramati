@@ -1,2 +1,9 @@
-<h1>Payment#index</h1>
-<p>Find me in app/views/payment/index.html.erb</p>
+<div class = "container">
+	<h1>Choose your Payment Option</h1>
+	<%= form_for :payment,  url: '/order/create'  do %>
+		<% @payments.each do |payment| %>
+			<p> <%= radio_button_tag :payment_type, payment.id %> <%= payment.paymentmode %></p>
+		<% end %>
+	<p> <%= submit_tag 'Continue payment' %> </p>
+	<% end %> 
+</div>

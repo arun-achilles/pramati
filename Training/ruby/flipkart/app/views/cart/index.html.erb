@@ -29,24 +29,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>Sub-Total</td>
-                            <td class="text-right"> &#8377</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Shipping</td>
-                            <td class="text-right"> 50 &#8377</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong> &#8377</strong></td>
+                            <td>Total</td>
+                            <td class="text-right"> <%= @total %>&#8377</td>
                         </tr>
                     </tbody>
                 </table>
@@ -58,7 +42,7 @@
                     <a class="btn btn-block btn-light" href = "/index">Continue Shopping</a>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <a class="btn btn-lg btn-block btn-success text-uppercase" href = "/order/create">Checkout</a>
+                    <a class="btn btn-lg btn-block btn-success text-uppercase" href = "/payment">Checkout</a>
                 </div>
             </div>
         </div>

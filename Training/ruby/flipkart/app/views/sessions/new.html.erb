@@ -1,6 +1,4 @@
-<% if current_user %>
-	<% controller.redirect_to '/index' %>
-<% else %>
+
 	<h1>User Login Form</h1>
 	<%= form_for :customer, url:'/login' do |f| %>
 
@@ -16,4 +14,3 @@
 		<%= f.submit :signin %>
 		</p>
 	<% end %>
-<% end %>
