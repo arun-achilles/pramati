@@ -1,6 +1,6 @@
 ## CSV Dumping And Loading with Database
 
-#CSV Dumping
+###CSV Dumping
 
 -To dump all the records
 ```
@@ -11,7 +11,7 @@
 \COPY (SELECT QUERY) TO '{path to csv}' delimiter ',' CSV
 ``` 
 
-#CSV Loading
+###CSV Loading
 
 -To load all the records
 ```
