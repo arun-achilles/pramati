@@ -2,7 +2,7 @@ class CartController < ApplicationController
   def index
     @total = 0
     if current_cart
-      @cartitems = current_cart.cart_items
+      @cartitems = current_user.cart_items
       @cartitems.each do |item|
         @total+=item.product.price*item.quantity
       end
